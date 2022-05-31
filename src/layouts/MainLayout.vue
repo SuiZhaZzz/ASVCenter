@@ -9,7 +9,7 @@
         <div class="col-3 row wrap justify-between items-center">
           <div class="col-3">
             <q-avatar>
-              <img src="whu-icon.png" />
+              <img src="/whu-icon.png" />
             </q-avatar>
           </div>
           <div class="col-8 text-subtitle1 text-weight-bolder">
@@ -87,7 +87,7 @@
                   </div>
                 </q-bar>
                 <q-img
-                  src="orientation.png"
+                  src="/orientation.png"
                   style="height: 270px"
                   fit="contain"
                 />
@@ -99,7 +99,7 @@
               style="overflow: hidden; min-height: 150px; max-height: 150px"
             >
               <q-img
-                src="top-1.png"
+                src="/top-1.png"
                 style="height: 150px"
                 fit="contain"
               ></q-img>
@@ -110,7 +110,7 @@
               style="overflow: hidden; min-height: 150px; max-height: 150px"
             >
               <q-img
-                src="top-2.png"
+                src="/top-2.png"
                 style="height: 150px"
                 fit="contain"
               ></q-img>
@@ -128,7 +128,7 @@
                   </div>
                 </q-bar>
                 <!-- <q-img
-                  src="velocity.png"
+                  src="/velocity.png"
                   style="height: 270px"
                   fit="contain"
                 ></q-img> -->
