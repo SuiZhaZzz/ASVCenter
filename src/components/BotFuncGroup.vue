@@ -35,6 +35,8 @@ export default defineComponent({
   },
   mounted() {
     this.connectMqtt();
+    this.setColors();
+    this.setDisables();
   },
   methods: {
     emergencyStop() {

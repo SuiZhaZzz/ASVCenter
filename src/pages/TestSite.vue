@@ -1,25 +1,43 @@
 <template>
   <q-page>
-    <iframe
-      :src="source"
-      frameborder="0"
-      allowfullscreen
-      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%"
-    ></iframe>
+    <div>
+      <video id="video"></video>
+    </div>
   </q-page>
 </template>
 
-<style></style>
+<style>
+</style>
 
 <script>
 import { defineComponent } from "vue";
 
+
+
 export default defineComponent({
   name: "TestSite",
-  data() {
-    return {
-      source: "http://www.bing.com/",
-    };
+  mounted() {
+    this.createVideo();
   },
+  methods:
+  {
+    createVideo() {
+      var video = document.getElementById('video');
+      var videoSrc = 'http://1.116.246.209:8888/test/index.m3u8';
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        video.muted = true;
+        video.play();
+        console.log("play");
+      }
+
+      else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        console.log('Hls is not supported')
+        video.src = videoSrc;
+      }
+    }
+  }
 });
 </script>
