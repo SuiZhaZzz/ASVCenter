@@ -1,10 +1,9 @@
 <template>
-  <div class="col-6 row">
+  <div class="row">
     <div class="col-4 column justify-center items-center">
       <q-icon name="r_rectangle" :color="stateColor" style="font-size: 2rem" />
     </div>
-
-    <div class="col-8 column justify-center">{{ name }}</div>
+    <div class="col-8 column justify-center"> {{ name }} </div>
   </div>
 </template>
 
@@ -21,7 +20,7 @@ export default defineComponent({
     // module runtime state
     // 0 - normal; 1 - error; 2 - unavailuable
     state: {
-      type: Int8Array,
+      type: Number,
       required: true,
     },
   },

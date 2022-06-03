@@ -1,12 +1,5 @@
 <template>
-  <q-btn
-    rounded
-    outline
-    :label="name"
-    :color="stateColor"
-    :disable="isDisable"
-    size="sm"
-  ></q-btn>
+  <q-btn rounded outline :label="name" :color="stateColor" :disable="isDisable" size="sm"></q-btn>
 </template>
 
 <script>
@@ -22,7 +15,7 @@ export default defineComponent({
     // module runtime state
     // 0 - normal; 1 - unavailuable
     state: {
-      type: Int8Array,
+      type: Number,
       required: true,
     },
   },

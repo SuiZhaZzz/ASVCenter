@@ -4,13 +4,19 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     // component: () => import("layouts/TestLayout.vue"),
     children: [
-      // { path: "", component: () => import("pages/SelfNavigation.vue") },
-      { path: "", component: () => import("pages/TestSite.vue") },
+      { path: "", component: () => import("pages/HomePage.vue") },
+      // { path: "", component: () => import("pages/TestSite.vue") },
+      {
+        path: "/HomePage",
+        name: "HomePage",
+        component: () => import("pages/HomePage.vue"),
+        // component: () => import("pages/TestSite.vue"),
+      },
       {
         path: "/SelfNavigation",
         name: "SelfNavigation",
-        // component: () => import("pages/SelfNavigation.vue"),
-        component: () => import("pages/TestSite.vue"),
+        component: () => import("pages/SelfNavigation.vue"),
+        // component: () => import("pages/TestSite.vue"),
       },
       {
         path: "/ScenePerception",

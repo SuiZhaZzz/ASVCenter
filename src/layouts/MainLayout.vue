@@ -1,10 +1,7 @@
 <template>
   <q-layout view="hHh LpR fFf">
     <q-header elevated class="bg-bl-1 text-white">
-      <div
-        class="row wrap justify-between items-center content-center"
-        style="height: 50px"
-      >
+      <div class="row wrap justify-between items-center content-center" style="height: 50px">
         <!-- icon and title -->
         <div class="col-3 row wrap justify-between items-center">
           <div class="col-3">
@@ -19,51 +16,19 @@
         <!-- top tabs -->
         <div class="col-7">
           <q-tabs shrink>
-            <q-route-tab
-              class="top-tab-bg"
-              name="tabSelfNav"
-              label="自主导航"
-              :to="{ path: '/SelfNavigation' }"
-              exact
-              replace
-            />
-            <q-route-tab
-              class="top-tab-bg"
-              name="tabScenePer"
-              label="场景感知"
-              :to="{ path: '/ScenePerception' }"
-              exact
-              replace
-            />
-            <q-route-tab
-              class="top-tab-bg"
-              name="tabMonitor"
-              label="视频监控"
-              :to="{ path: '/Monitor' }"
-              exact
-              replace
-            />
-            <q-route-tab
-              class="top-tab-bg"
-              name="tabWaypointPlan"
-              label="航点规划"
-              :to="{ path: '/WaypointPlan' }"
-              exact
-              replace
-            />
+            <q-route-tab class="top-tab-bg" name="tabSelfNav" label="自主导航" :to="{ path: '/SelfNavigation' }" exact
+              replace />
+            <q-route-tab class="top-tab-bg" name="tabScenePer" label="场景感知" :to="{ path: '/ScenePerception' }" exact
+              replace />
+            <q-route-tab class="top-tab-bg" name="tabMonitor" label="视频监控" :to="{ path: '/Monitor' }" exact replace />
+            <q-route-tab class="top-tab-bg" name="tabWaypointPlan" label="航点规划" :to="{ path: '/WaypointPlan' }" exact
+              replace />
           </q-tabs>
         </div>
         <!-- home tab -->
         <div class="col-2 column items-center">
           <q-tabs shrink>
-            <q-route-tab
-              class="top-tab-bg"
-              name="tabHome"
-              label="首页"
-              exact
-              replace
-              @click="goHome"
-            />
+            <q-route-tab class="top-tab-bg" name="tabHome" label="首页" exact replace @click="goHome" />
           </q-tabs>
         </div>
       </div>
@@ -76,52 +41,30 @@
         <q-page-sticky expand position="top">
           <div class="full-width row wrap">
             <div class="col-3">
-              <div
-                v-show="tLPanel"
-                class="card"
-                style="overflow: hidden; min-height: 300px; max-height: 300px"
-              >
+              <div v-show="tLPanel" class="card" style="overflow: hidden; min-height: 300px; max-height: 300px">
                 <q-bar class="bg-bl-3 justify-center" style="height: 30px">
                   <div style="font-size: 0.9rem; font-weight: 500">
                     ASV实时姿态
                   </div>
                 </q-bar>
-                <q-img
-                  src="/orientation.png"
-                  style="height: 270px"
-                  fit="contain"
-                />
+                <div style="height: 270px" class="row justify-center">
+                  <AttitudeIndicator :mqtt_server="mqtt_server" :topic="motion_topic"></AttitudeIndicator>
+                </div>
               </div>
             </div>
 
-            <div
-              class="col-3 card row items-center"
-              style="overflow: hidden; min-height: 150px; max-height: 150px"
-            >
-              <q-img
-                src="/top-1.png"
-                style="height: 150px"
-                fit="contain"
-              ></q-img>
+            <div class="col-3 card row items-center" style="overflow: hidden; min-height: 150px; max-height: 150px">
+              <!-- <q-img src="/top-1.png" style="height: 150px" fit="contain"></q-img> -->
+              <SensorStateL :mqtt_server="mqtt_server" :topic="sensor_topic"></SensorStateL>
             </div>
 
-            <div
-              class="col-3 card row items-center"
-              style="overflow: hidden; min-height: 150px; max-height: 150px"
-            >
-              <q-img
-                src="/top-2.png"
-                style="height: 150px"
-                fit="contain"
-              ></q-img>
+            <div class="col-3 card row items-center" style="overflow: hidden; min-height: 150px; max-height: 150px">
+              <!-- <q-img src="/top-2.png" style="height: 150px" fit="contain"></q-img> -->
+              <SensorStateR :mqtt_server="mqtt_server" :topic="sensor_topic"></SensorStateR>
             </div>
 
             <div class="col-3">
-              <div
-                v-show="tRPanel"
-                class="card"
-                style="overflow: hidden; min-height: 300px; max-height: 300px"
-              >
+              <div v-show="tRPanel" class="card" style="overflow: hidden; min-height: 300px; max-height: 300px">
                 <q-bar class="bg-bl-3 justify-center" style="height: 30px">
                   <div style="font-size: 0.9rem; font-weight: 500">
                     ASV航行速度
@@ -133,7 +76,7 @@
                   fit="contain"
                 ></q-img> -->
                 <div>
-                  <GuageChart></GuageChart>
+                  <GuageChart :mqtt_server="mqtt_server" :topic="motion_topic"></GuageChart>
                 </div>
               </div>
             </div>
@@ -144,11 +87,7 @@
         <q-page-sticky expand position="bottom">
           <div class="full-width row wrap items-end">
             <div class="col-3">
-              <div
-                v-show="bLPanel"
-                class="card"
-                style="overflow: hidden; min-height: 300px; max-height: 300px"
-              >
+              <div v-show="bLPanel" class="card" style="overflow: hidden; min-height: 300px; max-height: 300px">
                 <q-bar class="bg-bl-3 justify-center" style="height: 30px">
                   <div style="font-size: 0.9rem; font-weight: 500">
                     报警信息
@@ -156,86 +95,43 @@
                 </q-bar>
 
                 <div style="overflow: auto; height: 230px">
-                  <q-list>
-                    <q-item dense>
-                      <q-item-section avatar>
-                        <q-icon
-                          name="warning"
-                          color="red"
-                          style="font-size: 2rem"
-                        />
-                      </q-item-section>
-
-                      <q-item-section class="text-red text-weight-bold">
-                        ！电台信号丢失
-                      </q-item-section>
-                    </q-item>
-                  </q-list>
+                  <WarningMsg :mqtt_server="mqtt_server" :topic="warning_topic"></WarningMsg>
                 </div>
 
                 <q-bar class="bg-bl-3 justify-center" style="height: 40px">
-                  <q-btn-group>
-                    <q-btn class="bg-bl-2" outline label="手动遥控" />
-                    <q-btn class="bg-bl-2" outline label="航线巡航" />
-                    <q-btn class="bg-bl-2" outline label="自主避障" />
-                    <q-btn class="bg-bl-2" outline label="系统故障" />
-                  </q-btn-group>
+                  <SaillingMode :mqtt_server="mqtt_server" :topic="sailing_topic"></SaillingMode>
                 </q-bar>
               </div>
             </div>
 
-            <div
-              class="col-6 card row items-center justify-evenly"
-              style="overflow: hidden; height: 40px"
-            >
-              <BotFunc
-                v-for="func in botFuncs"
-                :key="func.name"
-                v-bind="func"
-              />
+            <div class="col-6 card row items-center justify-evenly" style="overflow: hidden; height: 40px">
+              <!-- <BotFunc v-for="func in botFuncs" :key="func.name" v-bind="func" /> -->
+              <BotFuncGroup :mqtt_server="mqtt_server" :topic="sailing_topic"></BotFuncGroup>
             </div>
 
             <div class="col-3">
-              <div
-                v-show="bRPanel"
-                class="card"
-                style="overflow: hidden; min-height: 300px; max-height: 300px"
-              >
+              <div v-show="bRPanel" class="card" style="overflow: hidden; min-height: 300px; max-height: 300px">
                 <q-bar class="bg-bl-3 justify-center" style="height: 30px">
                   <div style="font-size: 0.9rem; font-weight: 500">
                     模块运行状态
                   </div>
                 </q-bar>
-                <div
-                  class="column justify-between"
-                  style="overflow: hidden; height: 270px"
-                >
+                <div class="column justify-between" style="overflow: hidden; height: 270px">
+
                   <div class="col-5 row items-center">
-                    <ModuleState
-                      v-for="m in modules1"
-                      :key="m.name"
-                      v-bind="m"
-                    />
+                    <ModuleStateTop :mqtt_server="mqtt_server" :topic="module_topic"></ModuleStateTop>
                   </div>
 
                   <q-separator color="white" />
 
                   <div class="col-1.5 row items-center">
-                    <ModuleState
-                      v-for="m in modules2"
-                      :key="m.name"
-                      v-bind="m"
-                    />
+                    <ModuleStateMid :mqtt_server="mqtt_server" :topic="module_topic"></ModuleStateMid>
                   </div>
 
                   <q-separator color="white" />
 
                   <div class="col-5 row items-center">
-                    <ModuleState
-                      v-for="m in modules3"
-                      :key="m.name"
-                      v-bind="m"
-                    />
+                    <ModuleStateBot :mqtt_server="mqtt_server" :topic="module_topic"></ModuleStateBot>
                   </div>
                 </div>
               </div>
@@ -245,53 +141,22 @@
 
         <!-- four button around -->
         <q-page-sticky position="top-left">
-          <q-btn
-            @click="tLPanel = !tLPanel"
-            text-color="white"
-            flat
-            round
-            dense
-            icon="menu"
-          />
+          <q-btn @click="tLPanel = !tLPanel" text-color="white" flat round dense icon="menu" />
         </q-page-sticky>
         <q-page-sticky position="top-right">
-          <q-btn
-            @click="tRPanel = !tRPanel"
-            text-color="white"
-            flat
-            round
-            dense
-            icon="menu"
-          />
+          <q-btn @click="tRPanel = !tRPanel" text-color="white" flat round dense icon="menu" />
         </q-page-sticky>
         <q-page-sticky position="bottom-left">
-          <q-btn
-            @click="bLPanel = !bLPanel"
-            text-color="white"
-            flat
-            round
-            dense
-            icon="menu"
-          />
+          <q-btn @click="bLPanel = !bLPanel" text-color="white" flat round dense icon="menu" />
         </q-page-sticky>
         <q-page-sticky position="bottom-right">
-          <q-btn
-            @click="bRPanel = !bRPanel"
-            text-color="white"
-            flat
-            round
-            dense
-            icon="menu"
-          />
+          <q-btn @click="bRPanel = !bRPanel" text-color="white" flat round dense icon="menu" />
         </q-page-sticky>
       </q-page-container>
     </div>
 
     <q-footer bordered class="bg-grey-10 text-bl-2">
-      <div
-        class="row wrap justify-between items-center text-bot"
-        style="height: 25px"
-      >
+      <div class="row wrap justify-between items-center text-bot" style="height: 25px">
         <q-separator vertical size="0.5rem" color="blue" />
 
         <div class="col-1">268145.7813m</div>
@@ -318,6 +183,7 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
+
 .q-tab__label {
   font-weight: bold;
 }
@@ -337,13 +203,16 @@
 .bg-bl-1 {
   background: #000d33;
 }
+
 /* bottom bar */
 .bg-bl-2 {
   background: #00b3df;
 }
+
 .text-bl-2 {
   color: #00b3df;
 }
+
 /* card bar */
 .bg-bl-3 {
   background: #172f42;
@@ -354,111 +223,33 @@
 import { defineComponent, ref } from "vue";
 import ModuleState from "components/ModuleState.vue";
 import BotFunc from "components/BotFunc.vue";
-import GuageChart from "src/components/GuageChart.vue";
-
-let guage_chart = document.getElementById("guageChart");
-
-var modulesList1 = [
-  {
-    name: "GPS",
-    state: 0,
-  },
-  {
-    name: "IMU",
-    state: 0,
-  },
-  {
-    name: "Lidar",
-    state: 0,
-  },
-  {
-    name: "Camera",
-    state: 0,
-  },
-  {
-    name: "Mi-w Radar",
-    state: 0,
-  },
-  {
-    name: "Stereosonic",
-    state: 2,
-  },
-];
-
-var modulesList2 = [
-  {
-    name: "4G",
-    state: 0,
-  },
-  {
-    name: "Radio",
-    state: 1,
-  },
-];
-
-var modulesList3 = [
-  {
-    name: "Genuis",
-    state: 0,
-  },
-  {
-    name: "Scenario",
-    state: 0,
-  },
-  {
-    name: "Planning",
-    state: 0,
-  },
-  {
-    name: "Controller",
-    state: 0,
-  },
-  {
-    name: "Decision",
-    state: 0,
-  },
-  {
-    name: "Risk Eval",
-    state: 0,
-  },
-];
-
-// 0 - normal; 1 - unavailuble
-var botFuncsList = [
-  {
-    name: "Emergency Stop",
-    state: 0,
-  },
-  {
-    name: "Standby",
-    state: 1,
-  },
-  {
-    name: "Station Keep",
-    state: 1,
-  },
-  {
-    name: "Cancel Mission",
-    state: 0,
-  },
-  {
-    name: "Recover Mission",
-    state: 0,
-  },
-  {
-    name: "Course Reversal",
-    state: 0,
-  },
-];
+import GuageChart from "components/GuageChart.vue";
+import AttitudeIndicator from "components/AttitudeIndicator.vue";
+import SensorStateL from "components/SensorStateL.vue";
+import SensorStateR from "src/components/SensorStateR.vue";
+import WarningMsg from "src/components/WarningMsg.vue";
+import SaillingMode from "src/components/SaillingMode.vue";
+import ModuleStateTop from "src/components/ModuleStateTop.vue";
+import ModuleStateMid from "src/components/ModuleStateMid.vue";
+import ModuleStateBot from "src/components/ModuleStateBot.vue";
+import BotFuncGroup from "src/components/BotFuncGroup.vue";
 
 export default defineComponent({
   name: "MainLayout",
 
   components: {
-    ModuleState,
-    BotFunc,
-    BotFunc,
+    // ModuleState,
+    // BotFunc,
     GuageChart,
+    AttitudeIndicator,
+    SensorStateL,
+    SensorStateR,
+    WarningMsg,
+    SaillingMode,
+    ModuleStateTop,
+    ModuleStateMid,
+    ModuleStateBot,
+    BotFuncGroup
   },
 
   data() {
@@ -470,10 +261,15 @@ export default defineComponent({
       currentDateTime: null,
       x: 1,
       y: 0,
-      modules1: modulesList1,
-      modules2: modulesList2,
-      modules3: modulesList3,
-      botFuncs: botFuncsList,
+
+      mqtt_server: "ws://127.0.0.1:1884/mqtt",
+      // mqtt_server: "ws://1.116.246.209:8888/mqtt",
+      test_topic: "presence",
+      motion_topic: "usv/motion_state",
+      sensor_topic: "usv/sensor_state",
+      warning_topic: "usv/warning",
+      sailing_topic: "usv/sailing_mode",
+      module_topic: "usv/module_state"
     };
   },
   mounted() {
@@ -498,7 +294,7 @@ export default defineComponent({
   methods: {
     goHome() {
       this.$router.replace({
-        path: "/SelfNavigation",
+        path: "/HomePage",
       });
     },
 

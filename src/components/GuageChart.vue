@@ -10,23 +10,34 @@
 <script>
 export default {
   name: "GuageChart",
+  props: {
+    mqtt_server: {
+      type: String,
+      required: true,
+    },
+    topic: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
-      model: true,
-      guage_chart: null,
       value: 30,
+      guage_chart: null,
+      client: null,
     };
   },
   mounted() {
-    this.init();
+    this.initChart();
+    this.connectMqtt();
   },
   watch: {
-    "$q.dark.isActive": function () {
-      this.init();
+    value(old_value, new_value) {
+      this.guage_chart.setOption(this.echartOptions);
     },
   },
   computed: {
-    options() {
+    echartOptions() {
       return {
         tooltip: {
           formatter: "{a} : {c} km/h",
@@ -56,23 +67,53 @@ export default {
     },
   },
   methods: {
-    init() {
+    initChart() {
       let guageChart = document.getElementById("guageChart");
       echarts.dispose(guageChart);
-      let theme = this.model ? "dark" : "light";
+      let theme = "dark";
       this.guage_chart = echarts.init(guageChart, theme);
-      this.guage_chart.setOption(this.options);
+      this.guage_chart.setOption(this.echartOptions);
     },
     onResize() {
       if (this.guage_chart) {
         this.guage_chart.resize();
       }
     },
-    setValue: _.debounce(function (new_value) {
-      this.value = new_value;
-    }, 500),
+    connectMqtt() {
+      let that = this;
+      let client = that.client;
+
+      const options = {
+        // Clean session
+        clean: true,
+        connectTimeout: 4000,
+        reconnectPeriod: 4000,
+      };
+
+      try {
+        // client = mqtt.connect("ws://127.0.0.1:1884/mqtt", options);
+        client = mqtt.connect(that.mqtt_server, options);
+      } catch (error) {
+        console.log("mqtt.connect error", error);
+      }
+
+      client.on("connect", function () {
+        console.log("Connected");
+        // client.subscribe("presence");
+        client.subscribe(that.topic);
+      });
+
+      client.on("message", function (topic, message) {
+        // message is Buffer
+        let o = JSON.parse(message);
+        let num = Number(o.speed);
+        // console.log(num);
+        that.value = num;
+      });
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
