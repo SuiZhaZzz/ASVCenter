@@ -233,6 +233,7 @@ import ModuleStateTop from "src/components/ModuleStateTop.vue";
 import ModuleStateMid from "src/components/ModuleStateMid.vue";
 import ModuleStateBot from "src/components/ModuleStateBot.vue";
 import BotFuncGroup from "src/components/BotFuncGroup.vue";
+import { useQuasar } from "quasar";
 
 export default defineComponent({
   name: "MainLayout",
@@ -273,6 +274,12 @@ export default defineComponent({
     };
   },
   mounted() {
+
+    const qua = useQuasar()
+    if (qua.cookies.has('is_login') == false) {
+      console.log('has not login.')
+      this.$router.replace({ path: '/login' })
+    }
     setInterval(() => {
       var dd = new Date();
       var format =
@@ -296,6 +303,11 @@ export default defineComponent({
       this.$router.replace({
         path: "/HomePage",
       });
+    },
+    logout() {
+      qua.cookies.remove('is_login')
+      qua.cookies.remove('username')
+      this.$router.replace({ path: '/login' })
     },
 
     coordinate(e) {
