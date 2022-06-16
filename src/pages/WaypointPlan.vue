@@ -16,10 +16,10 @@ export default defineComponent({
       const imap = document.getElementById('imap');
       const deviceWidth = document.body.clientWidth;
       const deviceHeight = document.body.clientHeight;
-      // imap.style.width = (Number(deviceWidth) - 120) + 'px'; //数字是页面布局宽度差值
-      // imap.style.height = (Number(deviceHeight) - 64) + 'px'; //数字是页面布局高度差
+      imap.style.width = (Number(deviceWidth) - 150) + 'px'; //数字是页面布局宽度差值
+      imap.style.height = (Number(deviceHeight) - 120) + 'px'; //数字是页面布局高度差
       imap.style.width = (Number(deviceWidth)) + 'px'; //数字是页面布局宽度差值
-      imap.style.height = (Number(deviceHeight)) + 'px'; //数字是页面布局高度差
+      // imap.style.height = (Number(deviceHeight)) + 'px'; //数字是页面布局高度差
     }
 
     changemapIframe()
