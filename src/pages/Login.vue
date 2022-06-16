@@ -77,8 +77,8 @@ export default defineComponent({
                 position: 'top',
                 message: '登陆成功！'
               });
-              self.$q.cookies.set('username', username, { expires: '10s' })
-              self.$q.cookies.set('is_login', username, { expires: '10s' })
+              self.$q.cookies.set('username', username, { expires: '3600s' })
+              self.$q.cookies.set('is_login', username, { expires: '3600s' })
               this.$router.push('/')
             }
             self.$q.notify({
