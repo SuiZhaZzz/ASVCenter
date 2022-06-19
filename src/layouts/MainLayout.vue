@@ -263,8 +263,8 @@ export default defineComponent({
       x: 1,
       y: 0,
 
-      mqtt_server: "ws://127.0.0.1:1884/mqtt",
-      // mqtt_server: "ws://1.116.246.209:8888/mqtt",
+      // mqtt_server: "ws://127.0.0.1:1884/mqtt",
+      mqtt_server: "ws://1.116.246.209:1884/mqtt",
       test_topic: "presence",
       motion_topic: "usv/motion_state",
       sensor_topic: "usv/sensor_state",

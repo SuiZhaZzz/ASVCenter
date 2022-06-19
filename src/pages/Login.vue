@@ -67,9 +67,11 @@ export default defineComponent({
           message: '登录中...'
         });
         // axios.post('http://127.0.0.1:8502/user/login', {
-        axios.post('http://1.116.246.209/user/login', {
-          username: username,
-          password: password,
+        axios.get('http://1.116.246.209:8502/user/login', {
+          params: {
+            username: username,
+            password: password,
+          }
         }).then(
           res => {
             console.log(res);
