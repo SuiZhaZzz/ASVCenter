@@ -7,6 +7,10 @@ ASV Monitor and Configure Center
 yarn
 # or
 npm install
+
+# Then 
+cd public
+sh setup.sh
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)

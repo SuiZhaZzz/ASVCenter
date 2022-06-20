@@ -14,9 +14,6 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "IndexPage",
   mounted() {
-    let externalScript = document.createElement('script');
-    externalScript.setAttribute('src', './node_modules/cesium/Build/Cesium/Cesium.js')
-    document.head.appendChild(externalScript)
     Cesium.Ion.defaultAccesstoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxYmUzMTZjZi03ZDVmLTQxYTItYTI0NC05ODZmMTk5OWFmNTkiLCJpZCI6MzU0MDgsImlhdCI6MTYwMTk2OTc4MH0.m2Euaq9VOqnsid8zEa6OsmdCfZ309BzbfZ4ocAJvHZ0';
     const viewer = new Cesium.Viewer('cesiumContainer', {
       terrainProvider: Cesium.createWorldTerrain()
