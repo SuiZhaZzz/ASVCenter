@@ -8,11 +8,13 @@
   <q-btn rounded outline label="Recover Mission" :color="colors[4]" :disable="disables[4]" size="sm"></q-btn>
   <q-btn rounded outline label="Course Reversal" :color="colors[5]" :disable="disables[5]" size="sm"
     @click="courseReversal"></q-btn>
+  <q-btn rounded outline label="任务规划" :color="colors[6]" :disable="disables[6]" size="sm" @click="missionPlan"></q-btn>
+  <q-btn rounded outline label="任务发送" :color="colors[6]" :disable="disables[6]" size="sm" @click="missionSend"></q-btn>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-
+import emitter from '/utils/emitter'
 export default defineComponent({
   name: "BotFuncGroup",
   props: {
@@ -27,16 +29,18 @@ export default defineComponent({
   },
   data() {
     return {
-      colors: ["white", "white", "white", "white", "white", "white"],
-      disables: [false, false, false, true, true, false],
+      colors: ["white", "white", "white", "white", "white", "white", "white"],
+      disables: [false, false, false, true, true, false, true],
       client: null,
-      usv_mode: 0
+      usv_mode: 0,
+      emitter: emitter
     }
   },
   mounted() {
     this.connectMqtt();
     this.setColors();
     this.setDisables();
+    this.missionEventReady();
   },
   methods: {
     emergencyStop() {
@@ -113,6 +117,32 @@ export default defineComponent({
         that.setDisables();
       });
     },
+    missionSend() {
+      emitter.emit("BMapSendPlan");
+    },
+    missionPlan() {
+      emitter.emit("beginPlan");
+    },
+    missionEventReady() {
+      // var bridge = useQuasar().bex;
+      emitter.on('BMapLoad', event => {
+        this.colors[6] = 'white';
+        this.disables[6] = false;
+      });
+      emitter.on('BMapLeave', event => {
+        this.colors[6] = 'grey';
+        this.disables[6] = true;
+      });
+      emitter.on('Plan', (arr) => {
+        if (arr.length == 0) {
+          return;
+        }
+        var data = JSON.stringify(arr);
+        this.client.publish("usv/cmd/missionplan", data);
+      });
+
+    }
+
   }
 
 });

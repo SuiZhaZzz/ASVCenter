@@ -9,6 +9,3 @@ export default defineComponent({
   name: 'App'
 })
 </script>
-<style>
-@import '/node_modules/cesium/Build/Cesium/Widgets/widgets.css';
-</style>

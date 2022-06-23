@@ -104,7 +104,8 @@
               </div>
             </div>
 
-            <div class="col-6 card row items-center justify-evenly" style="overflow: hidden; height: 40px">
+            <div class="col-6 card row items-center justify-evenly"
+              style="overflow: hidden; height: 40px 'z-index: 10;'">
               <!-- <BotFunc v-for="func in botFuncs" :key="func.name" v-bind="func" /> -->
               <BotFuncGroup :mqtt_server="mqtt_server" :topic="sailing_topic"></BotFuncGroup>
             </div>
