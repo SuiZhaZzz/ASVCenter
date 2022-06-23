@@ -137,8 +137,10 @@ export default defineComponent({
         if (arr.length == 0) {
           return;
         }
-        var data = JSON.stringify(arr);
-        this.client.publish("usv/cmd/missionplan", data);
+        var data = { type: 1, data: arr };
+        var str = JSON.stringify(data);
+        console.log(str);
+        this.client.publish("usv/cmd/missionplan", str);
       });
 
     }
