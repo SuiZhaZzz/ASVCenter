@@ -32,30 +32,45 @@ export default defineComponent({
   },
   methods: {
     click_callback: function (e) {
-      var lng = e.latlng.lng, lat = e.latlng.lat;
       if (this.picking == false) return;
-
+      var lng = e.latlng.lng, lat = e.latlng.lat;
       this.pick_points.push(new BMapGL.Point(lng, lat));
-      this.map.clearOverlays();
-      var polyline = new BMapGL.Polyline(this.pick_points, { strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5 });
-      this.map.addOverlay(polyline);
+      this.redraw();
+    },
+    rightclick_callback: function (e) {
+      if (this.picking == false) return;
+      this.pick_points.pop();
+      this.redraw();
     },
     createMap: function () {
       this.map = new BMapGL.Map("bmap");
       var point = new BMapGL.Point(116.404, 39.915);
       this.map.centerAndZoom(point, 15);
-      this.map.addEventListener('click', this.click_callback);
-      this.map.addEventListener('rightclick', event => { this.map.clearOverlays(); this.pick_points = []; });
       this.map.enableScrollWheelZoom();
     },
-    end_plan: function () {
-      this.pickint = false;
-      this.pick_points = [];
+    redraw: function () {
       this.map.clearOverlays();
+      if (this.pick_points.length > 1) {
+        var polyline = new BMapGL.Polyline(this.pick_points, { strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5 });
+        this.map.addOverlay(polyline);
+      }
+      for (var i = 0; i < this.pick_points.length; i++) {
+        var point = this.pick_points[i];
+        var marker = new BMapGL.Marker(point);
+        this.map.addOverlay(marker);
+      }
+    },
+    end_plan: function () {
+      this.picking = false;
+      this.clear_plan();
     },
     begin_plan: function () {
       this.end_plan();
       this.picking = true;
+    },
+    clear_plan: function () {
+      this.pick_points = [];
+      this.redraw();
     },
     cor_convert() {
       var data = []
@@ -68,14 +83,17 @@ export default defineComponent({
       return data;
     },
     eventReady: function () {
-      emitter.on('beginPlan', event => { this.begin_plan(); })
-      emitter.on('endPlan', event => { this.end_plan(); })
-      emitter.on('BMapSendPlan', event => { emitter.emit('Plan', this.cor_convert()); })
+      this.map.addEventListener('click', this.click_callback);
+      this.map.addEventListener('rightclick', this.rightclick_callback);
+      this.emitter.on('beginPlan', event => { this.begin_plan(); })
+      this.emitter.on('endPlan', event => { this.end_plan(); })
+      this.emitter.on('clearPlan', event => { this.clear_plan(); })
+      this.emitter.on('BMapSendPlan', event => { this.emitter.emit('Plan', this.cor_convert()); })
     }
 
   },
   unmounted() {
-    emitter.emit('BMapLeave');
+    this.emitter.emit('BMapLeave');
   }
 
 });

@@ -8,8 +8,10 @@
   <q-btn rounded outline label="Recover Mission" :color="colors[4]" :disable="disables[4]" size="sm"></q-btn>
   <q-btn rounded outline label="Course Reversal" :color="colors[5]" :disable="disables[5]" size="sm"
     @click="courseReversal"></q-btn>
-  <q-btn rounded outline label="任务规划" :color="colors[6]" :disable="disables[6]" size="sm" @click="missionPlan"></q-btn>
-  <q-btn rounded outline label="任务发送" :color="colors[6]" :disable="disables[6]" size="sm" @click="missionSend"></q-btn>
+  <q-btn rounded outline label="开始规划" :color="colors[6]" :disable="disables[6]" size="sm" @click="beginPlan"></q-btn>
+  <q-btn rounded outline label="清空规划" :color="colors[6]" :disable="disables[6]" size="sm" @click="clearPlan"></q-btn>
+  <q-btn rounded outline label="取消规划" :color="colors[6]" :disable="disables[6]" size="sm" @click="endPlan"></q-btn>
+  <q-btn rounded outline label="发送规划" :color="colors[6]" :disable="disables[6]" size="sm" @click="sendPlan"></q-btn>
 </template>
 
 <script>
@@ -117,11 +119,18 @@ export default defineComponent({
         that.setDisables();
       });
     },
-    missionSend() {
-      emitter.emit("BMapSendPlan");
-    },
-    missionPlan() {
+    beginPlan() {
       emitter.emit("beginPlan");
+
+    },
+    clearPlan() {
+      emitter.emit("clearPlan");
+    },
+    endPlan() {
+      emitter.emit("endPlan");
+    },
+    sendPlan() {
+      emitter.emit("BMapSendPlan");
     },
     missionEventReady() {
       // var bridge = useQuasar().bex;
