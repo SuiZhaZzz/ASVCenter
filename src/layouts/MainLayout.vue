@@ -105,7 +105,7 @@
             </div>
 
             <div class="col-6 card row items-center justify-evenly"
-              style="overflow: hidden; height: 40px 'z-index: 10;'">
+              style="overflow: hidden; height: 40px; z-index: 100;">
               <!-- <BotFunc v-for="func in botFuncs" :key="func.name" v-bind="func" /> -->
               <BotFuncGroup :mqtt_server="mqtt_server" :topic="sailing_topic"></BotFuncGroup>
             </div>
@@ -264,8 +264,8 @@ export default defineComponent({
       x: 1,
       y: 0,
 
-      // mqtt_server: "ws://127.0.0.1:1884/mqtt",
-      mqtt_server: "ws://1.116.246.209:1884/mqtt",
+      mqtt_server: mqtt_server_url,
+      // mqtt_server: "ws://1.116.246.209:1884/mqtt",
       test_topic: "presence",
       motion_topic: "usv/motion_state",
       sensor_topic: "usv/sensor_state",

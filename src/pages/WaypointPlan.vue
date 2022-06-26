@@ -13,7 +13,7 @@ export default defineComponent({
   data() {
     return {
       width: window.innerWidth,
-      height: window.innerHeight - 100,
+      height: window.innerHeight - 200,
       pick_points: [],
       picking: false,
       // picking: true,
