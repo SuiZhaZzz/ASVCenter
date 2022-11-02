@@ -29,12 +29,18 @@ const routes = [
         component: () => import("pages/Monitor.vue"),
       },
       {
+        path: "/BaiduMap",
+        name: "BaiduMap",
+        component: () => import("pages/BaiduMap.vue"),
+      },
+      {
         path: "/WaypointPlan",
         name: "WaypointPlan",
         component: () => import("pages/WaypointPlan.vue"),
       },
     ],
   },
+
   {
     path: "/login",
     component: () => import("pages/Login.vue"),

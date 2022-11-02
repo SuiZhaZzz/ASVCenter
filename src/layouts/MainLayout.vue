@@ -21,7 +21,9 @@
             <q-route-tab class="top-tab-bg" name="tabScenePer" label="场景感知" :to="{ path: '/ScenePerception' }" exact
               replace />
             <q-route-tab class="top-tab-bg" name="tabMonitor" label="视频监控" :to="{ path: '/Monitor' }" exact replace />
-            <q-route-tab class="top-tab-bg" name="tabWaypointPlan" label="航点规划" :to="{ path: '/WaypointPlan' }" exact
+            <q-route-tab class="top-tab-bg" name="tabWaypointPlan" label="百度地图" :to="{ path: '/BaiduMap' }" exact
+              replace />
+            <q-route-tab class="top-tab-bg" name="tabWaypointPlan" label="航道规划" :to="{ path: '/WaypointPlan' }" exact
               replace />
           </q-tabs>
         </div>
@@ -141,7 +143,8 @@
         </q-page-sticky>
 
         <!-- four button around -->
-        <q-page-sticky position="top-left">
+        <!--<q-page-sticky position="top-left">-->
+        <q-page-sticky expand position="top-left">
           <q-btn @click="tLPanel = !tLPanel" text-color="white" flat round dense icon="menu" />
         </q-page-sticky>
         <q-page-sticky position="top-right">
