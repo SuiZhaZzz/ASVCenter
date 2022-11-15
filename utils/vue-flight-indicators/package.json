@@ -1,0 +1,35 @@
+{
+  "name": "vue-flight-indicators",
+  "description": "Flight indicator components for VueJS.",
+  "version": "0.1.1",
+  "author": {
+    "name": "Uğur Cibaroğlu",
+    "email": "ugur.cibar@gmail.com",
+    "github": "uCibar"
+  },
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uCibar/vue-flight-indicators.git"
+  },
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build-bundle": "vue-cli-service build --target lib --name vue-flight-indicators src/_index.js",
+    "lint": "vue-cli-service lint"
+  },
+  "module": "index.js",
+  "main": "dist/vue-flight-indicators.common.js",
+  "unpkg": "dist/vue-flight-indicators.umd.js",
+  "jsdelivr": "dist/vue-flight-indicators.umd.js",
+  "peerDependencies": {
+    "vue": ">=2.0.0"
+  },
+  "files": [
+    "dist/*",
+    "src/*",
+    "*.json",
+    "*.js",
+    "LICENSE",
+    "README.md"
+  ]
+}
