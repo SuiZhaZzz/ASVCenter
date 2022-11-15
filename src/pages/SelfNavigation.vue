@@ -48,7 +48,7 @@ export default defineComponent({
   mounted() {
     this.connectMqtt();
 
-    Cesium.Ion.defaultAccesstoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxYmUzMTZjZi03ZDVmLTQxYTItYTI0NC05ODZmMTk5OWFmNTkiLCJpZCI6MzU0MDgsImlhdCI6MTYwMTk2OTc4MH0.m2Euaq9VOqnsid8zEa6OsmdCfZ309BzbfZ4ocAJvHZ0';
+    Cesium.Ion.defaultAccesstoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2Y2ZhYjJmNS0wYTYxLTQ0Y2ItYjZiYi03MjIwNDVhMmMzMGUiLCJpZCI6MTEzNjg5LCJpYXQiOjE2Njc1NjI0NDR9.yTjPpKF-Ws1w7CNpitM8RRvIoCxQIISQYKL61cCsiyY';
     this.viewer = new Cesium.Viewer('cesiumContainer', {
       terrainProvider: Cesium.createWorldTerrain()
     });

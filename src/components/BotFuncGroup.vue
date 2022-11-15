@@ -142,6 +142,16 @@ export default defineComponent({
         this.colors[6] = 'grey';
         this.disables[6] = true;
       });
+      
+      //添加航道
+      emitter.on('ChannelLoad', event => {
+        this.colors[6] = 'white';
+        this.disables[6] = false;
+      });
+      emitter.on('ChannelLeave', event => {
+        this.colors[6] = 'grey';
+        this.disables[6] = true;
+      });
       emitter.on('Plan', (arr) => {
         if (arr.length == 0) {
           return;

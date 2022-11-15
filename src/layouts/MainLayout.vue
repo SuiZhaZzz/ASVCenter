@@ -16,14 +16,14 @@
         <!-- top tabs -->
         <div class="col-7">
           <q-tabs shrink>
-            <q-route-tab class="top-tab-bg" name="tabSelfNav" label="自主导航" :to="{ path: '/SelfNavigation' }" exact
+            <q-route-tab  @click="tLPanel=true,tRPanel=true,bLPanel=true,bRPanel=true" class="top-tab-bg" name="tabSelfNav" label="自主导航" :to="{ path: '/SelfNavigation' }" exact
               replace />
-            <q-route-tab class="top-tab-bg" name="tabScenePer" label="场景感知" :to="{ path: '/ScenePerception' }" exact
+            <q-route-tab  @click="tLPanel=true,tRPanel=true,bLPanel=true,bRPanel=true" class="top-tab-bg" name="tabScenePer" label="场景感知" :to="{ path: '/ScenePerception' }" exact
               replace />
-            <q-route-tab class="top-tab-bg" name="tabMonitor" label="视频监控" :to="{ path: '/Monitor' }" exact replace />
-            <q-route-tab class="top-tab-bg" name="tabWaypointPlan" label="百度地图" :to="{ path: '/BaiduMap' }" exact
+            <q-route-tab  @click="tLPanel=true,tRPanel=true,bLPanel=true,bRPanel=true" class="top-tab-bg" name="tabMonitor" label="视频监控" :to="{ path: '/Monitor' }" exact replace />
+            <q-route-tab  @click="tLPanel=true,tRPanel=true,bLPanel=true,bRPanel=true" class="top-tab-bg" name="tabBaiduMapPlan" label="百度地图" :to="{ path: '/BaiduMap' }" exact
               replace />
-            <q-route-tab class="top-tab-bg" name="tabWaypointPlan" label="航道规划" :to="{ path: '/WaypointPlan' }" exact
+            <q-route-tab  @click="tLPanel=false,tRPanel=false,bLPanel=false,bRPanel=false" class="top-tab-bg" name="tabWaypointPlan" label="航道规划" :to="{ path: '/WaypointPlan' }" exact
               replace />
           </q-tabs>
         </div>
